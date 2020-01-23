@@ -313,8 +313,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Generator.cs" />
+    <Compile Include="Assets\ProgressBar\Scripts\CiclularProgress.cs" />
+    <Compile Include="Assets\ProgressBar\Scripts\GameObjectRotate.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\ProgressBar\Shaders\AlphaProgress.shader" />
     <None Include="Packages\com.unity.package-manager-ui\Editor\Resources\Styles\Main_Dark.uss" />
     <None Include="Packages\com.unity.package-manager-ui\Editor\Resources\Styles\Main_Light.uss" />
     <None Include="Packages\com.unity.package-manager-ui\Editor\Resources\Templates\Alert.uxml" />
