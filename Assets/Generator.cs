@@ -21,6 +21,7 @@ public class Generator : MonoBehaviour {
 	void Update () {
 		if(gen_progress == 100f) {      
 			complete = true;
+			gameObject.GetComponent<Renderer>().material.color = new Color(0.5f,1,1);
 		}
 
 		
@@ -29,8 +30,10 @@ public class Generator : MonoBehaviour {
 				InvokeRepeating("ProgressGenerator", 0f, gen_speed);  //1s delay, repeat every 1s
 			}
 		}
+
 		
         if (Input.GetMouseButtonUp(0)) {
+			
             CancelInvoke();
 		}
 		
