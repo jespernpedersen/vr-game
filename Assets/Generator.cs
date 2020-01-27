@@ -7,9 +7,13 @@ using Valve.VR;
 public class Generator : MonoBehaviour {
     public float genProgress;
 	public bool complete;
-	public Slider UISlider;
 	public float genDelay;
 	public float genSpeed;
+
+	// UI
+	public Slider UISlider;
+	public Text statusText;
+	public string RepairText;
 
 	// Controller
 	// a reference to the action
@@ -35,6 +39,7 @@ public class Generator : MonoBehaviour {
 	void Update () {
 		if(genProgress == 100f) {      
 			complete = true;
+			UISlider.gameObject.SetActive (false);
 			gameObject.GetComponent<Renderer>().material.color = new Color(0.5f,1,1);
 		}
 		
@@ -47,13 +52,12 @@ public class Generator : MonoBehaviour {
  	}
 	public void TriggerDown(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource) {
 		if(genProgress != 100f) {
-			Debug.Log("Trigger Down");
+			statusText.text = RepairText.ToString();
 			UISlider.gameObject.SetActive (true);
 			InvokeRepeating("ProgressGenerator", 0f, genSpeed);  //1s delay, repeat every 1s
 		}
 	}  
 	public void TriggerUp(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource) {
-		Debug.Log("Trigger Up");
     	CancelInvoke();
 		UISlider.gameObject.SetActive (false);
 	}
