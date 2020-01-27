@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Valve.VR;
 
-public class Generator : MonoBehaviour {
+public class Generator : MonoBehaviour, iGazeReceiver {
     public float genProgress;
 	public bool complete;
 	public float genDelay;
@@ -15,20 +15,13 @@ public class Generator : MonoBehaviour {
 	public Text statusText;
 	public string RepairText;
 
-	// Controller
-	// a reference to the action
-	public SteamVR_Action_Boolean genRepairInput;
-	// a reference to the hand
-	public SteamVR_Input_Sources handType;
+	// Raycast
+	private bool isGazingUpon;
 
 
 
 	// Use this for initialization
 	void Start () {
-
-		// Input
-		genRepairInput.AddOnStateDownListener(TriggerDown, handType);
-		genRepairInput.AddOnStateUpListener(TriggerUp, handType);
 
 		// Gen Status
 		genProgress = 0f;
@@ -47,18 +40,35 @@ public class Generator : MonoBehaviour {
 	}
 	void ProgressGenerator() {	
 		if(complete != true) {
-			genProgress++;
-		}
- 	}
-	public void TriggerDown(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource) {
-		if(genProgress != 100f) {
 			statusText.text = RepairText.ToString();
 			UISlider.gameObject.SetActive (true);
-			InvokeRepeating("ProgressGenerator", 0f, genSpeed);  //1s delay, repeat every 1s
+			genProgress++;
+            transform.Rotate(0, 3, 0);
 		}
-	}  
-	public void TriggerUp(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource) {
-    	CancelInvoke();
+ 	}
+	public void Generator_Interact() {	
+		if(isGazingUpon){
+			if(genProgress != 100f) {
+				InvokeRepeating("ProgressGenerator", 0f, genSpeed);  //1s delay, repeat every 1s
+			}
+		}
+		else {
+			Cancel_Interact();
+		}
+	}
+	public void Cancel_Interact() {
+		Debug.Log("Canceling");
+		CancelInvoke();
 		UISlider.gameObject.SetActive (false);
 	}
+
+	// Raycast 
+    
+    public void GazingUpon() {
+        isGazingUpon = true;
+    }
+
+    public void NotGazingUpon() {
+        isGazingUpon = false;
+    }
 }
