@@ -2,46 +2,59 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Valve.VR;
 
 public class Generator : MonoBehaviour {
-    public float gen_progress;
+    public float genProgress;
 	public bool complete;
 	public Slider UISlider;
-	public float progress_bar;
-	public float gen_speed;
+	public float genDelay;
+	public float genSpeed;
+
+	// Controller
+	// a reference to the action
+	public SteamVR_Action_Boolean genRepairInput;
+	// a reference to the hand
+	public SteamVR_Input_Sources handType;
+
 
 
 	// Use this for initialization
 	void Start () {
-		gen_progress = 0f;
+
+		// Input
+		genRepairInput.AddOnStateDownListener(TriggerDown, handType);
+		genRepairInput.AddOnStateUpListener(TriggerUp, handType);
+
+		// Gen Status
+		genProgress = 0f;
 		complete = false;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if(gen_progress == 100f) {      
+		if(genProgress == 100f) {      
 			complete = true;
 			gameObject.GetComponent<Renderer>().material.color = new Color(0.5f,1,1);
 		}
-
 		
-        if (Input.GetMouseButtonDown(0)) {
-			if(gen_progress != 100f) {
-				InvokeRepeating("ProgressGenerator", 0f, gen_speed);  //1s delay, repeat every 1s
-			}
-		}
-
-		
-        if (Input.GetMouseButtonUp(0)) {
-			
-            CancelInvoke();
-		}
-		
-		UISlider.GetComponent<Slider> ().value = gen_progress;
+		UISlider.GetComponent<Slider> ().value = genProgress;
 	}
 	void ProgressGenerator() {	
 		if(complete != true) {
-			gen_progress++;
+			genProgress++;
 		}
  	}
+	public void TriggerDown(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource) {
+		if(genProgress != 100f) {
+			Debug.Log("Trigger Down");
+			UISlider.gameObject.SetActive (true);
+			InvokeRepeating("ProgressGenerator", 0f, genSpeed);  //1s delay, repeat every 1s
+		}
+	}  
+	public void TriggerUp(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource) {
+		Debug.Log("Trigger Up");
+    	CancelInvoke();
+		UISlider.gameObject.SetActive (false);
+	}
 }
