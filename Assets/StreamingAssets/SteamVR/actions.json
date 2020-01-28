@@ -89,6 +89,10 @@
     {
       "name": "/actions/dead/in/genRepairInput",
       "type": "boolean"
+    },
+    {
+      "name": "/actions/dead/in/GameObjectInteract",
+      "type": "boolean"
     }
   ],
   "action_sets": [

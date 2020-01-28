@@ -7,7 +7,8 @@ using Valve.VR;
 public class Interactable : MonoBehaviour {
 	// Controller
 	// a reference to the action
-	public SteamVR_Action_Boolean genRepairInput;
+	public SteamVR_Action_Boolean InteractionInput;
+	public SteamVR_Action_Boolean GameObjectInteract;
 	// a reference to the hand
 	public SteamVR_Input_Sources handType;
 	public GameObject Generator;
@@ -22,8 +23,9 @@ public class Interactable : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		// Input
-		genRepairInput.AddOnStateDownListener(TriggerDown, handType);
-		genRepairInput.AddOnStateUpListener(TriggerUp, handType);	
+		InteractionInput.AddOnStateDownListener(TriggerDown, handType);
+		InteractionInput.AddOnStateUpListener(TriggerUp, handType);	
+		GameObjectInteract.AddOnStateUpListener(Interact, handType);
 	}
 	
 	// Update is called once per frame
@@ -33,6 +35,9 @@ public class Interactable : MonoBehaviour {
 		// When triggering down, check if looking at any interactable
     	CheckGaze();
 	}  
+	public void Interact(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource) {
+		Generator.GetComponent<Generator>().SkillCheck_Interact();
+	}
 	public void TriggerUp(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource) {
 		// When Releasing Trigger, we should cancel interaction
 		Generator.GetComponent<Generator>().Cancel_Interact();
@@ -41,8 +46,10 @@ public class Interactable : MonoBehaviour {
 		if (lastGazedUpon){
 			lastGazedUpon.SendMessage("NotGazingUpon", SendMessageOptions.DontRequireReceiver);
 		}
+
 		Ray gazeRay = new Ray(viewCamera.transform.position, viewCamera.transform.rotation * Vector3.forward);
 		RaycastHit hit;
+
 		if (Physics.Raycast(gazeRay, out hit, Mathf.Infinity)){
 			hit.transform.SendMessage("GazingUpon", SendMessageOptions.DontRequireReceiver);
 			lastGazedUpon = hit.transform.gameObject;

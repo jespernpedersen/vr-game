@@ -24,5 +24,13 @@ namespace Valve.VR
                 return SteamVR_Actions.dead_genRepairInput;
             }
         }
+        
+        public virtual SteamVR_Action_Boolean GameObjectInteract
+        {
+            get
+            {
+                return SteamVR_Actions.dead_GameObjectInteract;
+            }
+        }
     }
 }

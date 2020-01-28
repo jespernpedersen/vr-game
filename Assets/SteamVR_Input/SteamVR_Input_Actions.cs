@@ -59,6 +59,8 @@ namespace Valve.VR
         
         private static SteamVR_Action_Boolean p_dead_genRepairInput;
         
+        private static SteamVR_Action_Boolean p_dead_GameObjectInteract;
+        
         public static SteamVR_Action_Boolean default_InteractUI
         {
             get
@@ -227,6 +229,14 @@ namespace Valve.VR
             }
         }
         
+        public static SteamVR_Action_Boolean dead_GameObjectInteract
+        {
+            get
+            {
+                return SteamVR_Actions.p_dead_GameObjectInteract.GetCopy <SteamVR_Action_Boolean>();
+            }
+        }
+        
         private static void InitializeActionArrays()
         {
             Valve.VR.SteamVR_Input.actions = new Valve.VR.SteamVR_Action[]
@@ -251,7 +261,8 @@ namespace Valve.VR
                     SteamVR_Actions.buggy_Reset,
                     SteamVR_Actions.mixedreality_ExternalCamera,
                     SteamVR_Actions.sphereSet_SphereAppearDisappear,
-                    SteamVR_Actions.dead_genRepairInput};
+                    SteamVR_Actions.dead_genRepairInput,
+                    SteamVR_Actions.dead_GameObjectInteract};
             Valve.VR.SteamVR_Input.actionsIn = new Valve.VR.ISteamVR_Action_In[]
             {
                     SteamVR_Actions.default_InteractUI,
@@ -273,7 +284,8 @@ namespace Valve.VR
                     SteamVR_Actions.buggy_Reset,
                     SteamVR_Actions.mixedreality_ExternalCamera,
                     SteamVR_Actions.sphereSet_SphereAppearDisappear,
-                    SteamVR_Actions.dead_genRepairInput};
+                    SteamVR_Actions.dead_genRepairInput,
+                    SteamVR_Actions.dead_GameObjectInteract};
             Valve.VR.SteamVR_Input.actionsOut = new Valve.VR.ISteamVR_Action_Out[]
             {
                     SteamVR_Actions.default_Haptic};
@@ -297,7 +309,8 @@ namespace Valve.VR
                     SteamVR_Actions.buggy_Brake,
                     SteamVR_Actions.buggy_Reset,
                     SteamVR_Actions.sphereSet_SphereAppearDisappear,
-                    SteamVR_Actions.dead_genRepairInput};
+                    SteamVR_Actions.dead_genRepairInput,
+                    SteamVR_Actions.dead_GameObjectInteract};
             Valve.VR.SteamVR_Input.actionsSingle = new Valve.VR.SteamVR_Action_Single[]
             {
                     SteamVR_Actions.default_Squeeze,
@@ -328,7 +341,8 @@ namespace Valve.VR
                     SteamVR_Actions.buggy_Brake,
                     SteamVR_Actions.buggy_Reset,
                     SteamVR_Actions.sphereSet_SphereAppearDisappear,
-                    SteamVR_Actions.dead_genRepairInput};
+                    SteamVR_Actions.dead_genRepairInput,
+                    SteamVR_Actions.dead_GameObjectInteract};
         }
         
         private static void PreInitActions()
@@ -354,6 +368,7 @@ namespace Valve.VR
             SteamVR_Actions.p_mixedreality_ExternalCamera = ((SteamVR_Action_Pose)(SteamVR_Action.Create <SteamVR_Action_Pose>("/actions/mixedreality/in/ExternalCamera")));
             SteamVR_Actions.p_sphereSet_SphereAppearDisappear = ((SteamVR_Action_Boolean)(SteamVR_Action.Create <SteamVR_Action_Boolean>("/actions/SphereSet/in/SphereAppearDisappear")));
             SteamVR_Actions.p_dead_genRepairInput = ((SteamVR_Action_Boolean)(SteamVR_Action.Create <SteamVR_Action_Boolean>("/actions/dead/in/genRepairInput")));
+            SteamVR_Actions.p_dead_GameObjectInteract = ((SteamVR_Action_Boolean)(SteamVR_Action.Create <SteamVR_Action_Boolean>("/actions/dead/in/GameObjectInteract")));
         }
     }
 }
