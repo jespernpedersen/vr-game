@@ -18,6 +18,10 @@ public class Generator : MonoBehaviour, iGazeReceiver {
 	// Raycast
 	private bool isGazingUpon;
 
+	// Skill Check
+	public float mintime_skillcheck = 3f;
+	public float maxtime_skillcheck = 30f;
+
 
 
 	// Use this for initialization
@@ -41,6 +45,13 @@ public class Generator : MonoBehaviour, iGazeReceiver {
 		// Slider = Gen Progress
 		UISlider.GetComponent<Slider> ().value = genProgress;
 	}
+	public void SkillCheck() { 
+
+		
+		     
+		// Repeat Same Function
+      	Invoke("SkillCheck", Random.Range(mintime_skillcheck, maxtime_skillcheck));
+	}
 	void ProgressGenerator() {	
 		if(complete != true) {
 			// Set Repair Text
@@ -58,6 +69,8 @@ public class Generator : MonoBehaviour, iGazeReceiver {
 		if(isGazingUpon){
 			// If the Gen isn't complete
 			if(genProgress != 100f) {
+				// Skill Check
+				Invoke("SkillCheck", Random.Range(mintime_skillcheck, maxtime_skillcheck));
 				// Repeat Generator Progress
 				InvokeRepeating("ProgressGenerator", 0f, genSpeed);  //1s delay, repeat every 1s
 			}
@@ -69,6 +82,7 @@ public class Generator : MonoBehaviour, iGazeReceiver {
 		// Hide Progress Bar
 		UISlider.gameObject.SetActive (false);
 	}
+
 
 	// Raycast 
     public void GazingUpon() {
