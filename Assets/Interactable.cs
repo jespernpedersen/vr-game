@@ -15,7 +15,6 @@ public class Interactable : MonoBehaviour {
 	// Raycast
 	public Camera viewCamera;
 	private GameObject lastGazedUpon;
-	private bool statusController;
 
 	// UI
 	public Slider UISlider;
@@ -24,31 +23,29 @@ public class Interactable : MonoBehaviour {
 	void Start () {
 		// Input
 		genRepairInput.AddOnStateDownListener(TriggerDown, handType);
-		genRepairInput.AddOnStateUpListener(TriggerUp, handType);		
-		statusController = false;
+		genRepairInput.AddOnStateUpListener(TriggerUp, handType);	
 	}
 	
 	// Update is called once per frame
 	void Update () {
 	}
 	public void TriggerDown(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource) {
+		// When triggering down, check if looking at any interactable
     	CheckGaze();
 	}  
 	public void TriggerUp(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource) {
+		// When Releasing Trigger, we should cancel interaction
 		Generator.GetComponent<Generator>().Cancel_Interact();
 	}
 	private void CheckGaze() {
 		if (lastGazedUpon){
 			lastGazedUpon.SendMessage("NotGazingUpon", SendMessageOptions.DontRequireReceiver);
-			Generator.GetComponent<Generator>().Cancel_Interact();
 		}
 		Ray gazeRay = new Ray(viewCamera.transform.position, viewCamera.transform.rotation * Vector3.forward);
 		RaycastHit hit;
 		if (Physics.Raycast(gazeRay, out hit, Mathf.Infinity)){
-			Debug.Log("Gazing");
 			hit.transform.SendMessage("GazingUpon", SendMessageOptions.DontRequireReceiver);
 			lastGazedUpon = hit.transform.gameObject;
-			Generator.GetComponent<Generator>().Generator_Interact();
 		}
     }
 }
