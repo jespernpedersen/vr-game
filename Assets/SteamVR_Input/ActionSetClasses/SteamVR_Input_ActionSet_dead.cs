@@ -32,5 +32,21 @@ namespace Valve.VR
                 return SteamVR_Actions.dead_GameObjectInteract;
             }
         }
+        
+        public virtual SteamVR_Action_Boolean MovementForward
+        {
+            get
+            {
+                return SteamVR_Actions.dead_MovementForward;
+            }
+        }
+        
+        public virtual SteamVR_Action_Pose Movement
+        {
+            get
+            {
+                return SteamVR_Actions.dead_Movement;
+            }
+        }
     }
 }

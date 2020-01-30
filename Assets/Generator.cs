@@ -23,7 +23,6 @@ public class Generator : MonoBehaviour, iGazeReceiver {
 	public float SkillCheck_MinTime = 1f;
 	public float SkillCheck_MaxTime = 5f;
     public float SkillCheck_Time = 2f;
-
 	private float SkillCheck_Countdown;
 	private bool SkillCheck_Success = false;
 	private bool SkillCheck_Status = false;
@@ -86,8 +85,6 @@ public class Generator : MonoBehaviour, iGazeReceiver {
 		CancelInvoke("Generator_Progress");
 		Gen_Progress -= 15f;
 		InvokeRepeating("Generator_Progress", 1f, Gen_Speed);
-
-		// SkillCheck_Text.text.SetActive(false);
 	}
 
 	public void SkillCheck_Interact() {

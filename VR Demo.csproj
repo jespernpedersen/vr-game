@@ -335,13 +335,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\game_controls.cs" />
+    <Compile Include="Assets\GenCount.cs" />
     <Compile Include="Assets\Generator.cs" />
     <Compile Include="Assets\iGazeReceiver.cs" />
-    <Compile Include="Assets\Input.cs" />
     <Compile Include="Assets\Interactable.cs" />
-    <Compile Include="Assets\Movement.cs" />
-    <Compile Include="Assets\MyActionScript.cs" />
     <Compile Include="Assets\ProgressBar\Scripts\CiclularProgress.cs" />
     <Compile Include="Assets\ProgressBar\Scripts\GameObjectRotate.cs" />
   </ItemGroup>

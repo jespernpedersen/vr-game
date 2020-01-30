@@ -93,6 +93,14 @@
     {
       "name": "/actions/dead/in/GameObjectInteract",
       "type": "boolean"
+    },
+    {
+      "name": "/actions/dead/in/MovementForward",
+      "type": "boolean"
+    },
+    {
+      "name": "/actions/dead/in/Movement",
+      "type": "pose"
     }
   ],
   "action_sets": [

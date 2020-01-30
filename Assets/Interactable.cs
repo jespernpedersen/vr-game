@@ -9,6 +9,7 @@ public class Interactable : MonoBehaviour {
 	// a reference to the action
 	public SteamVR_Action_Boolean InteractionInput;
 	public SteamVR_Action_Boolean GameObjectInteract;
+	public SteamVR_Action_Boolean Movement;
 	// a reference to the hand
 	public SteamVR_Input_Sources handType;
 	public GameObject Generator;
