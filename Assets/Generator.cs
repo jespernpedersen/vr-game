@@ -5,10 +5,11 @@ using UnityEngine.UI;
 using Valve.VR;
 
 public class Generator : MonoBehaviour, iGazeReceiver {
-    public float Gen_Progress;
-	public bool Gen_Complete;
+    private float Gen_Progress;
+	private bool Gen_Complete;
 	public float Gen_Delay;
 	public float Gen_Speed;
+	private bool ProgressGenerator;
 
 	// UI
 	public Slider Progress_Slider;
@@ -17,6 +18,7 @@ public class Generator : MonoBehaviour, iGazeReceiver {
 	public string Repair_Text;
 
 	// Raycast
+	public GameObject Player;
 	private bool isGazingUpon;
 
 	// Skill Check
@@ -33,6 +35,7 @@ public class Generator : MonoBehaviour, iGazeReceiver {
 	void Start () {
 		// Gen Status
 		Gen_Progress = 0f;
+		ProgressGenerator = false;
 		// Every Gen starts uncompleted
 		Gen_Complete = false;
 		// Skill Check
@@ -97,7 +100,7 @@ public class Generator : MonoBehaviour, iGazeReceiver {
 		}
 	}
 
-	void Generator_Progress() {	
+	private void Generator_Progress() {	
 		if(Gen_Complete != true) {
 			// Set Repair Text
 			Status_Text.text = Repair_Text.ToString();
@@ -106,7 +109,7 @@ public class Generator : MonoBehaviour, iGazeReceiver {
 			// Increase Progress for Gen
 			Gen_Progress++;
 			// Rotate Gen
-            transform.Rotate(0, 60, 0);
+			transform.Rotate(0, 60, 0);
 			// Slider = Gen Progress
 			Progress_Slider.GetComponent<Slider> ().value = Gen_Progress;
 		}
@@ -124,13 +127,13 @@ public class Generator : MonoBehaviour, iGazeReceiver {
 		}
 	}
 	public void Cancel_Interact() {
+		Debug.Log("Cancelled Interact");
+		CancelInvoke("Generator_Progress");
 		if(SkillCheck_Status) {
 			SkillCheck_Penalty();
 		}
-		else {	
-			// Cancel Invoke Repeatings
-			CancelInvoke();
-		}
+		CancelInvoke("SkillCheck");
+		
 		// Hide Progress Bar
 		Progress_Slider.gameObject.SetActive(false);
 	}
@@ -140,6 +143,7 @@ public class Generator : MonoBehaviour, iGazeReceiver {
     public void GazingUpon() {
         isGazingUpon = true;
 		Generator_Interact();
+		Player.GetComponent<Interactable>().SetInteractable(gameObject);
     }
     public void NotGazingUpon() {
         isGazingUpon = false;

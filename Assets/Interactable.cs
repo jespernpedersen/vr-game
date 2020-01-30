@@ -12,7 +12,7 @@ public class Interactable : MonoBehaviour {
 	public SteamVR_Action_Boolean Movement;
 	// a reference to the hand
 	public SteamVR_Input_Sources handType;
-	public GameObject Generator;
+	public GameObject InteractableObject;
 
 	// Raycast
 	public Camera viewCamera;
@@ -32,16 +32,21 @@ public class Interactable : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 	}
+	public void SetInteractable(GameObject ViewInteractable) {
+		InteractableObject = ViewInteractable;
+	}
 	public void TriggerDown(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource) {
 		// When triggering down, check if looking at any interactable
     	CheckGaze();
+		// Debug.Log("Interact");
 	}  
 	public void Interact(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource) {
-		Generator.GetComponent<Generator>().SkillCheck_Interact();
+		InteractableObject.GetComponent<Generator>().SkillCheck_Interact();
+		// Debug.Log("Skill Check Interact");
 	}
 	public void TriggerUp(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource) {
 		// When Releasing Trigger, we should cancel interaction
-		Generator.GetComponent<Generator>().Cancel_Interact();
+		InteractableObject.GetComponent<Generator>().Cancel_Interact();
 	}
 	private void CheckGaze() {
 		if (lastGazedUpon){
