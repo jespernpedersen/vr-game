@@ -38,15 +38,18 @@ public class Interactable : MonoBehaviour {
 	public void TriggerDown(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource) {
 		// When triggering down, check if looking at any interactable
     	CheckGaze();
-		// Debug.Log("Interact");
 	}  
 	public void Interact(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource) {
 		InteractableObject.GetComponent<Generator>().SkillCheck_Interact();
-		// Debug.Log("Skill Check Interact");
 	}
 	public void TriggerUp(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource) {
 		// When Releasing Trigger, we should cancel interaction
-		InteractableObject.GetComponent<Generator>().Cancel_Interact();
+		if(InteractableObject.gameObject.tag == "gen") {
+			InteractableObject.GetComponent<Generator>().Cancel_Interact();
+		}
+		else {
+			InteractableObject.GetComponent<GateBehaviour>().Cancel_Interact();
+		}
 	}
 	private void CheckGaze() {
 		if (lastGazedUpon){

@@ -15,7 +15,7 @@ public class Generator : MonoBehaviour, iGazeReceiver {
 	public Text Status_Text;
 	public Text SkillCheck_Text;
 	public string Repair_Text;
-	public Text GeneratorCount;
+	public GameObject GeneratorCount;
 
 	// Raycast
 	public GameObject Player;
@@ -42,6 +42,7 @@ public class Generator : MonoBehaviour, iGazeReceiver {
 		// Skill Check, Set SkillCheck Countdown to Time for used repeatably in a loop.
 		SkillCheck_Countdown = SkillCheck_Time;
 		SkillCheck_Success = false;
+
 	}
 	
 	// Update is called once per frame

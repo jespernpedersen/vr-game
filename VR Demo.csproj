@@ -335,6 +335,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\GateBehaviour.cs" />
     <Compile Include="Assets\GenCount.cs" />
     <Compile Include="Assets\Generator.cs" />
     <Compile Include="Assets\iGazeReceiver.cs" />
